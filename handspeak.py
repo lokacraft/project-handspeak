@@ -22,7 +22,7 @@ class VideoWorker(QThread):
         super().__init__()
         self.model = model
         self.running = True
-        self.mp_hands = mp.solutions.hands
+        self.mp_hands = mp.hands
         self.hands = self.mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 
     def run(self):
@@ -37,7 +37,7 @@ class VideoWorker(QThread):
                 char = "-"
                 if res.multi_hand_landmarks:
                     for lms in res.multi_hand_landmarks:
-                        mp.solutions.drawing_utils.draw_landmarks(frame, lms, self.mp_hands.HAND_CONNECTIONS)
+                        mp.drawing_utils.draw_landmarks(frame, lms, self.mp_hands.HAND_CONNECTIONS)
                         
                         # ROI Extraction & Preprocessing
                         h, w, _ = frame.shape
@@ -78,7 +78,7 @@ class HandSpeakApp(QMainWindow):
         self.init_ui()
 
     def init_model(self):
-        path = "models/sign_language_model_handspeak1.keras"
+        path = "models/handspeak_model_v3_11.keras"
         if os.path.exists(path):
             try:
                 self.model = tf.keras.models.load_model(path, compile=False)

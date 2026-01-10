@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+env_handspeak/
+venv/
+env/
+
+# Media/Temporary Files
+temp_speech.mp3
+*.log
+
+# Models (Opsional: abaikan jika ukuran file >100MB)
+# models/*.keras
+# models/*.h5
+
+# OS generated files
+.DS_Store
+Thumbs.db
