@@ -1,0 +1,7 @@
+numpy<2.0.0
+tensorflow==2.15.0
+keras==2.15.0
+# mediapipe
+opencv-python
+pillow
+protobuf<4.22
