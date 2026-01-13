@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QSize
 from PyQt5.QtGui import QImage, QPixmap, QFont, QColor
 
-# --- KONFIGURASI ---
+#  KONFIGURASI 
 MODEL_PATH = "models/handspeak_model_v3_11.keras"
 IMG_SIZE = 64
 BUFFER_SIZE = 10 
@@ -27,7 +27,7 @@ class VideoWorker(QThread):
         super().__init__()
         self.model = model
         self.running = True
-        self.bg_mode = "None" # Default: Tanpa Background Solid
+        self.bg_mode = "None" 
         self.bg_color = (0, 0, 0)
         
         # Inisialisasi MediaPipe
@@ -74,7 +74,7 @@ class VideoWorker(QThread):
                         
                         roi = frame[y_min:y_max, x_min:x_max]
                         if roi.size != 0:
-                            # Logika Background Masking
+                            #  Background Masking
                             if self.bg_mode != "None":
                                 roi_rgb = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
                                 seg_results = self.segment.process(roi_rgb)
@@ -145,7 +145,7 @@ class HandSpeakApp(QMainWindow):
 
         body = QHBoxLayout(); body.setSpacing(25)
 
-        # --- LEFT PANEL ---
+        #  LEFT PANEL 
         left_side = QVBoxLayout()
         
         # Dropdown Background Selector
@@ -170,7 +170,7 @@ class HandSpeakApp(QMainWindow):
         left_side.addWidget(self.btn_cam)
         body.addLayout(left_side)
 
-        # --- RIGHT PANEL ---
+        #  RIGHT PANEL 
         right_side = QVBoxLayout(); right_side.setSpacing(20)
 
         info_h = QHBoxLayout()
@@ -235,17 +235,16 @@ class HandSpeakApp(QMainWindow):
         text = self.text_out.toPlainText()
         if text:
             try:
-                # 1. Stop dan UNLOAD adalah kunci untuk melepas lock file
+                # 1. Stop dan UNLOAD
                 if pygame.mixer.music.get_busy():
                     pygame.mixer.music.stop()
                 
                 pygame.mixer.music.unload() # Melepaskan file temp_speech.mp3 dari memori
                 
-                # 2. Proses gTTS seperti biasa
+                # 2. Proses gTTS 
                 tts = gTTS(text=text, lang='id')
                 filename = "speech_output/temp_speech.mp3"
                 
-                # Sekarang save tidak akan error karena file sudah di-unload
                 tts.save(filename)
                 
                 # 3. Load dan putar kembali
